@@ -1,0 +1,115 @@
+{% extends "admin/base.html" %} {% block title %}Upload Resume - Admin Panel{%
+endblock %} {% block content %}
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="mb-2"><i class="fas fa-upload me-2"></i>Upload Resume</h2>
+          <p class="text-muted mb-0">Upload your resume file</p>
+        </div>
+        <a
+          href="{{ url_for('admin_resume') }}"
+          class="btn btn-outline-secondary"
+        >
+          <i class="fas fa-arrow-left me-2"></i>Back to Resumes
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-file-upload me-2"></i>Upload New Resume
+          </h5>
+        </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="mb-4">
+              <label for="resume_file" class="form-label">
+                <i class="fas fa-file-pdf me-2"></i>Resume File
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="resume_file"
+                name="resume_file"
+                accept=".pdf,.doc,.docx"
+                required
+              />
+              <div class="form-text">
+                <i class="fas fa-info-circle me-1"></i>
+                Supported formats: PDF, DOC, DOCX (Max size: 16MB)
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="description" class="form-label">
+                <i class="fas fa-align-left me-2"></i>Description (Optional)
+              </label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="3"
+                placeholder="Add a brief description of this resume..."
+              ></textarea>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <a
+                href="{{ url_for('admin_resume') }}"
+                class="btn btn-outline-secondary me-md-2"
+              >
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+              <button type="submit" class="btn btn-custom">
+                <i class="fas fa-upload me-2"></i>Upload Resume
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Upload Guidelines -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-lightbulb me-2"></i>Upload Guidelines
+          </h6>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2">
+              <i class="fas fa-check text-success me-2"></i>
+              <strong>File Format:</strong> PDF, DOC, or DOCX files only
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check text-success me-2"></i>
+              <strong>File Size:</strong> Maximum 16MB per file
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check text-success me-2"></i>
+              <strong>Naming:</strong> Use descriptive filenames (e.g.,
+              "Resume_2024.pdf")
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check text-success me-2"></i>
+              <strong>Content:</strong> Ensure your resume is up-to-date and
+              professional
+            </li>
+            <li class="mb-0">
+              <i class="fas fa-check text-success me-2"></i>
+              <strong>Multiple Uploads:</strong> You can upload multiple
+              versions of your resume
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

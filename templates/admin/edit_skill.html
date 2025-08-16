@@ -1,0 +1,102 @@
+{% extends "admin/base.html" %} {% block title %}Edit Skill - Admin Panel{%
+endblock %} {% block content %}
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="mb-2"><i class="fas fa-edit me-2"></i>Edit Skill</h2>
+          <p class="text-muted mb-0">Update skill information</p>
+        </div>
+        <a
+          href="{{ url_for('admin_skills') }}"
+          class="btn btn-outline-secondary"
+        >
+          <i class="fas fa-arrow-left me-2"></i>Back to Skills
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-code me-2"></i>Edit Skill: {{ skill.name }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <form method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label">
+                <i class="fas fa-tag me-2"></i>Skill Name *
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                value="{{ skill.name }}"
+                placeholder="e.g., Python, JavaScript, React"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="percentage" class="form-label">
+                <i class="fas fa-percentage me-2"></i>Proficiency Level *
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                id="percentage"
+                name="percentage"
+                value="{{ skill.percentage }}"
+                min="0"
+                max="100"
+                placeholder="85"
+                required
+              />
+              <div class="form-text">
+                <i class="fas fa-info-circle me-1"></i>
+                Enter a value between 0 and 100
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="category" class="form-label">
+                <i class="fas fa-folder me-2"></i>Category
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="category"
+                name="category"
+                value="{{ skill.category or '' }}"
+                placeholder="e.g., Programming Languages, Frameworks, Tools"
+              />
+              <div class="form-text">
+                <i class="fas fa-info-circle me-1"></i>
+                Optional: Group your skills by category
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <a
+                href="{{ url_for('admin_skills') }}"
+                class="btn btn-outline-secondary me-md-2"
+              >
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+              <button type="submit" class="btn btn-custom">
+                <i class="fas fa-save me-2"></i>Update Skill
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

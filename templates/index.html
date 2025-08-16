@@ -1,0 +1,460 @@
+{% extends "base.html" %} {% block title %}{{ profile.name if profile else
+'Portfolio' }}{% endblock %} {% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div
+        class="col-lg-6 text-center text-lg-start"
+        data-aos="fade-right"
+        data-aos-delay="200"
+      >
+        <h1 class="display-4 fw-bold mb-4">
+          {{ profile.name if profile else 'Your Name' }}
+        </h1>
+        <h2 class="h3 mb-4">
+          {{ profile.title if profile else 'Web Developer' }}
+        </h2>
+        <p class="lead mb-4">
+          {{ profile.about if profile else 'Passionate developer creating
+          amazing web experiences.' }}
+        </p>
+        <div class="social-links mb-4">
+          {% if profile and profile.linkedin %}
+          <a href="{{ profile.linkedin }}" target="_blank"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          {% endif %} {% if profile and profile.github %}
+          <a href="{{ profile.github }}" target="_blank"
+            ><i class="fab fa-github"></i
+          ></a>
+          {% endif %} {% if profile and profile.twitter %}
+          <a href="{{ profile.twitter }}" target="_blank"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          {% endif %}
+        </div>
+        <a href="#contact" class="btn btn-custom btn-lg">Get In Touch</a>
+      </div>
+      <div
+        class="col-lg-6 text-center"
+        data-aos="fade-left"
+        data-aos-delay="400"
+      >
+        {% if profile and profile.photo %}
+        <img
+          src="{{ url_for('static', filename='uploads/' + profile.photo) }}"
+          alt="{{ profile.name }}"
+          class="profile-img"
+        />
+        {% else %}
+        <div
+          class="profile-img d-flex align-items-center justify-content-center bg-white text-dark"
+        >
+          <i class="fas fa-user fa-4x"></i>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">About Me</h2>
+    <div class="row">
+      <div
+        class="col-lg-8 mx-auto text-center"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <p class="lead">
+          {{ profile.about if profile else 'I am a passionate developer with
+          expertise in creating modern web applications. I love learning new
+          technologies and solving complex problems.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Skills</h2>
+    <div class="row">
+      {% for skill in skills %}
+      <div
+        class="col-lg-6 col-md-6"
+        data-aos="fade-up"
+        data-aos-delay="{{ loop.index * 100 }}"
+      >
+        <div class="skill-item">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">{{ skill.name }}</h5>
+            <span class="badge bg-primary">{{ skill.percentage }}%</span>
+          </div>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: {{ skill.percentage }}%"
+              aria-valuenow="{{ skill.percentage }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          {% if skill.category %}
+          <small class="text-muted">{{ skill.category }}</small>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Projects</h2>
+    <div class="row">
+      {% for project in projects %}
+      <div
+        class="col-lg-4 col-md-6"
+        data-aos="fade-up"
+        data-aos-delay="{{ loop.index * 150 }}"
+      >
+        <div class="project-card">
+          {% if project.image %}
+          <img
+            src="{{ url_for('static', filename='uploads/' + project.image) }}"
+            alt="{{ project.title }}"
+            class="project-img"
+          />
+          {% else %}
+          <div
+            class="project-img bg-secondary d-flex align-items-center justify-content-center"
+          >
+            <i class="fas fa-code fa-3x text-white"></i>
+          </div>
+          {% endif %}
+          <div class="p-4">
+            <h5 class="mb-3">{{ project.title }}</h5>
+            <p class="text-muted">{{ project.description }}</p>
+            {% if project.technologies %}
+            <p class="mb-3">
+              <strong>Technologies:</strong> {{ project.technologies }}
+            </p>
+            {% endif %}
+            <div class="d-flex gap-2">
+              {% if project.link %}
+              <a
+                href="{{ project.link }}"
+                target="_blank"
+                class="btn btn-sm btn-custom"
+                >Live Demo</a
+              >
+              {% endif %} {% if project.github_link %}
+              <a
+                href="{{ project.github_link }}"
+                target="_blank"
+                class="btn btn-sm btn-outline-primary"
+                >GitHub</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="section-padding">
+  <div class="container">
+    <h2 class="section-title">Experience</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        {% for experience in experiences %}
+        <div class="experience-item">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h5 class="mb-1">{{ experience.title }}</h5>
+              <h6 class="text-primary mb-1">{{ experience.company }}</h6>
+              {% if experience.location %}
+              <small class="text-muted"
+                ><i class="fas fa-map-marker-alt"></i> {{ experience.location
+                }}</small
+              >
+              {% endif %}
+            </div>
+            <div class="text-end">
+              <small class="text-muted">
+                {{ experience.start_date.strftime('%B %Y') }} - {% if
+                experience.current %}Present{% else %}{{
+                experience.end_date.strftime('%B %Y') }}{% endif %}
+              </small>
+            </div>
+          </div>
+          {% if experience.description %}
+          <p class="mb-0">{{ experience.description }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education Section -->
+<section id="education" class="section-padding">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        {% for edu in education %}
+        <div class="education-item">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h5 class="mb-1">{{ edu.degree }}</h5>
+              <h6 class="text-primary mb-1">{{ edu.institution }}</h6>
+              {% if edu.location %}
+              <small class="text-muted"
+                ><i class="fas fa-map-marker-alt"></i> {{ edu.location }}</small
+              >
+              {% endif %}
+            </div>
+            <div class="text-end">
+              <small class="text-muted">
+                {{ edu.start_date.strftime('%B %Y') }} - {% if edu.current
+                %}Present{% else %}{{ edu.end_date.strftime('%B %Y') }}{% endif
+                %}
+              </small>
+            </div>
+          </div>
+          {% if edu.description %}
+          <p class="mb-0">{{ edu.description }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certificates Section -->
+<section id="certificates" class="section-padding">
+  <div class="container">
+    <h2 class="section-title">Certificates</h2>
+    <div class="row">
+      {% for certificate in certificates %}
+      <div class="col-lg-4 col-md-6">
+        <div class="certificate-card">
+          {% if certificate.image %}
+          <img
+            src="{{ url_for('static', filename='uploads/' + certificate.image) }}"
+            alt="{{ certificate.name }}"
+            class="certificate-img"
+          />
+          {% else %}
+          <div
+            class="certificate-img bg-secondary d-flex align-items-center justify-content-center mx-auto"
+          >
+            <i class="fas fa-certificate fa-3x text-white"></i>
+          </div>
+          {% endif %}
+          <h5 class="mb-2">{{ certificate.name }}</h5>
+          <p class="text-muted mb-2">{{ certificate.issuer }}</p>
+          <small class="text-muted"
+            >{{ certificate.date_earned.strftime('%B %Y') }}</small
+          >
+          {% if certificate.link %}
+          <div class="mt-3">
+            <a
+              href="{{ certificate.link }}"
+              target="_blank"
+              class="btn btn-sm btn-custom"
+              >View Certificate</a
+            >
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Resume Section -->
+{% if resume %}
+<section id="resume" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Resume</h2>
+    <div class="row">
+      <div
+        class="col-lg-8 mx-auto text-center"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
+        <div class="card resume-card">
+          <div class="card-body p-5">
+            <i class="fas fa-file-pdf fa-4x text-primary mb-4"></i>
+            <h4 class="mb-3">{{ resume.original_name }}</h4>
+            {% if resume.description %}
+            <p class="text-muted mb-4">{{ resume.description }}</p>
+            {% endif %}
+            <p class="text-muted mb-4">
+              <small
+                >Uploaded on {{ resume.upload_date.strftime('%B %d, %Y')
+                }}</small
+              >
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+              <a
+                href="{{ url_for('view_resume', id=resume.id) }}"
+                target="_blank"
+                class="btn btn-outline-primary"
+              >
+                <i class="fas fa-eye me-2"></i>View Resume
+              </a>
+              <a
+                href="{{ url_for('download_resume', id=resume.id) }}"
+                class="btn btn-custom"
+              >
+                <i class="fas fa-download me-2"></i>Download Resume
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Contact Section -->
+<section id="contact" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Contact Me</h2>
+    <div class="row">
+      <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="contact-info">
+          <h4 class="mb-4">Get In Touch</h4>
+          <div class="row">
+            {% if profile and profile.email %}
+            <div class="col-12 mb-4">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h6 class="mb-1">Email</h6>
+                  <a
+                    href="mailto:{{ profile.email }}"
+                    class="text-decoration-none"
+                    target="_blank"
+                    >{{ profile.email }}</a
+                  >
+                </div>
+              </div>
+            </div>
+            {% endif %} {% if profile and profile.phone %}
+            <div class="col-12 mb-4">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h6 class="mb-1">Phone</h6>
+                  <a href="tel:{{ profile.phone }}" class="text-decoration-none"
+                    >{{ profile.phone }}</a
+                  >
+                </div>
+              </div>
+            </div>
+            {% endif %} {% if profile and profile.location %}
+            <div class="col-12 mb-4">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h6 class="mb-1">Location</h6>
+                  <p class="mb-0">{{ profile.location }}</p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          <div class="mt-4">
+            <h6 class="mb-3">Follow Me</h6>
+            <div class="social-links">
+              {% if profile and profile.linkedin %}
+              <a href="{{ profile.linkedin }}" target="_blank"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              {% endif %} {% if profile and profile.github %}
+              <a href="{{ profile.github }}" target="_blank"
+                ><i class="fab fa-github"></i
+              ></a>
+              {% endif %} {% if profile and profile.twitter %}
+              <a href="{{ profile.twitter }}" target="_blank"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+        <div class="contact-form">
+          <h4 class="mb-4">Send Message</h4>
+          <form method="POST" action="{{ url_for('contact') }}">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email *</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="subject"
+                name="subject"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message *</label>
+              <textarea
+                class="form-control"
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom">
+              <i class="fas fa-paper-plane me-2"></i>Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

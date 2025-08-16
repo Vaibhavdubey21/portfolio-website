@@ -1,0 +1,179 @@
+{% extends "admin/base.html" %} {% block title %}Add Project - Admin Panel{%
+endblock %} {% block content %}
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="mb-2"><i class="fas fa-plus me-2"></i>Add New Project</h2>
+          <p class="text-muted mb-0">Add a new project to your portfolio</p>
+        </div>
+        <a
+          href="{{ url_for('admin_projects') }}"
+          class="btn btn-outline-secondary"
+        >
+          <i class="fas fa-arrow-left me-2"></i>Back to Projects
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-project-diagram me-2"></i>Add Project
+          </h5>
+        </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="title" class="form-label">
+                <i class="fas fa-tag me-2"></i>Project Title *
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                placeholder="e.g., E-commerce Website"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">
+                <i class="fas fa-align-left me-2"></i>Description *
+              </label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="4"
+                placeholder="Describe your project, its features, and your role..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="technologies" class="form-label">
+                    <i class="fas fa-code me-2"></i>Technologies Used
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="technologies"
+                    name="technologies"
+                    placeholder="e.g., Python, Flask, Bootstrap"
+                  />
+                  <div class="form-text">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Separate technologies with commas
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="image" class="form-label">
+                    <i class="fas fa-image me-2"></i>Project Image
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                  />
+                  <div class="form-text">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Optional: Upload a screenshot or logo
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="start_date" class="form-label">
+                    <i class="fas fa-calendar me-2"></i>Start Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="start_date"
+                    name="start_date"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="end_date" class="form-label">
+                    <i class="fas fa-calendar me-2"></i>End Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="end_date"
+                    name="end_date"
+                  />
+                  <div class="form-text">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Leave empty if project is ongoing
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="github_link" class="form-label">
+                    <i class="fab fa-github me-2"></i>GitHub Link
+                  </label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="github_link"
+                    name="github_link"
+                    placeholder="https://github.com/username/project"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="live_link" class="form-label">
+                    <i class="fas fa-external-link-alt me-2"></i>Live Demo Link
+                  </label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="live_link"
+                    name="live_link"
+                    placeholder="https://your-project.com"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <a
+                href="{{ url_for('admin_projects') }}"
+                class="btn btn-outline-secondary me-md-2"
+              >
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+              <button type="submit" class="btn btn-custom">
+                <i class="fas fa-plus me-2"></i>Add Project
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

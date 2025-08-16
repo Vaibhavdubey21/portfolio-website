@@ -1,0 +1,99 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Certificates Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Certificates Management</h1>
+        <a href="{{ url_for('add_certificate') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Certificate
+        </a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Certificates</h6>
+        </div>
+        <div class="card-body">
+            {% if certificates %}
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Issuer</th>
+                                <th>Date Earned</th>
+                                <th>Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificate in certificates %}
+                            <tr>
+                                <td>
+                                    {% if certificate.image %}
+                                        <img src="{{ url_for('static', filename='uploads/' + certificate.image) }}" 
+                                             alt="{{ certificate.name }}" 
+                                             style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                                    {% else %}
+                                        <div class="bg-light d-flex align-items-center justify-content-center" 
+                                             style="width: 50px; height: 50px; border-radius: 5px;">
+                                            <i class="fas fa-certificate text-muted"></i>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td>{{ certificate.name }}</td>
+                                <td>{{ certificate.issuer }}</td>
+                                <td>{{ certificate.date_earned.strftime('%B %Y') }}</td>
+                                <td>
+                                    {% if certificate.link %}
+                                        <a href="{{ certificate.link }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-external-link-alt me-1"></i>View
+                                        </a>
+                                    {% else %}
+                                        <span class="text-muted">No link</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('edit_certificate', id=certificate.id) }}" 
+                                       class="btn btn-sm btn-warning me-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{ url_for('delete_certificate', id=certificate.id) }}" 
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this certificate?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-certificate fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">No certificates found</h5>
+                    <p class="text-muted">Add your first certificate to get started.</p>
+                    <a href="{{ url_for('add_certificate') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add Certificate
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
